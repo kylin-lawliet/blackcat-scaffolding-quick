@@ -1,7 +1,10 @@
 package com.blackcat.scaffolding.entity;
 
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.extension.activerecord.Model;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.Date;
 
@@ -10,7 +13,8 @@ import java.util.Date;
  * @author : zhangdahui  2024/8/23 下午2:47
  */
 @Data
-public class SysOperLog extends BaseEntity{
+@NoArgsConstructor
+public class SysOperLog extends Model<SysOperLog> {
     private static final long serialVersionUID = 1L;
 
     /** 日志主键 */
@@ -23,6 +27,7 @@ public class SysOperLog extends BaseEntity{
     private Integer businessType;
 
     /** 业务类型数组 */
+    @TableField(exist = false)
     private Integer[] businessTypes;
 
     /** 请求方法 */

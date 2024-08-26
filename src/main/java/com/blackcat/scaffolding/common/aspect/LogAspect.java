@@ -3,10 +3,11 @@ package com.blackcat.scaffolding.common.aspect;
 import com.alibaba.fastjson2.JSON;
 import com.blackcat.scaffolding.common.annotation.Log;
 import com.blackcat.scaffolding.common.filter.PropertyPreExcludeFilter;
-import com.blackcat.scaffolding.constant.Constants;
+import com.blackcat.scaffolding.constant.Constant;
 import com.blackcat.scaffolding.entity.SysOperLog;
 import com.blackcat.scaffolding.service.SysOperLogService;
-import com.blackcat.scaffolding.utils.IpUtil;
+import com.blackcat.scaffolding.utils.AddressUtils;
+import com.blackcat.scaffolding.utils.IpUtils;
 import com.blackcat.scaffolding.utils.ServletUtils;
 import com.blackcat.scaffolding.utils.StringUtils;
 import org.apache.commons.lang3.ArrayUtils;
@@ -84,13 +85,13 @@ public class LogAspect {
         try{
             // *========数据库日志=========*//
             SysOperLog operLog = new SysOperLog();
-            operLog.setStatus(Integer.valueOf(Constants.SUCCESS));
+            operLog.setStatus(Integer.valueOf(Constant.SUCCESS));
             // 请求的地址
-            String ip = IpUtil.getIpAddress();
+            String ip = IpUtils.getIpAddr();
             operLog.setOperIp(ip);
             operLog.setOperUrl(StringUtils.substring(ServletUtils.getRequest().getRequestURI(), 0, 255));
             if (e != null){
-                operLog.setStatus(Integer.valueOf(Constants.FAIL));
+                operLog.setStatus(Integer.valueOf(Constant.FAIL));
                 operLog.setErrorMsg(StringUtils.substring(e.getMessage(), 0, 2000));
             }
             // 设置方法名称
@@ -104,7 +105,7 @@ public class LogAspect {
             // 设置消耗时间
             operLog.setCostTime(System.currentTimeMillis() - TIME_THREADLOCAL.get());
             // 远程查询操作地点
-            operLog.setOperLocation(IpUtil.getIpAddress());
+            operLog.setOperLocation(AddressUtils.getRealAddressByIP(operLog.getOperIp()));
             // 保存数据库
             sysOperLogService.save(operLog);
         }

@@ -9,7 +9,7 @@ import java.nio.charset.StandardCharsets;
 import java.security.Security;
 import java.util.Base64;
 
-import static com.blackcat.scaffolding.constant.Constants.SALT;
+import static com.blackcat.scaffolding.constant.Constant.SALT;
 
 /**
  * SM4加密解密
