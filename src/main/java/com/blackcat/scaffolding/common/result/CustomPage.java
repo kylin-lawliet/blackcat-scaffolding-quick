@@ -21,19 +21,19 @@ public class CustomPage {
     /** 总的记录条数 */
     private int totalCount;
     /** 本页的数据列表 */
-    private List recordList;
+    private List dataList;
     /** 总的页数 */
     private int totalPageCount;
 
     /**
      * 快速创建对象
-     * @param recordList 数据
+     * @param dataList 数据
      * @param totalCount 总记录数
      * @param pageNow 当前页
      * @param pageSize 每页显示记录的条数
      */
-    public CustomPage(List recordList,int totalCount, int pageNow, int pageSize) {
-        this.recordList = recordList;
+    public CustomPage(List dataList,int totalCount, int pageNow, int pageSize) {
+        this.dataList = dataList;
         this.totalCount = totalCount;
         this.pageNow = pageNow;
         this.pageSize = pageSize;
@@ -52,7 +52,7 @@ public class CustomPage {
         this.totalCount = (int) mybatisPage.getTotal();
         this.pageNow = (int) mybatisPage.getCurrent();
         this.pageSize = (int) mybatisPage.getSize();
-        this.recordList = mybatisPage.getRecords();
+        this.dataList = mybatisPage.getRecords();
         this.totalPageCount = (int) mybatisPage.getPages();
     }
 
