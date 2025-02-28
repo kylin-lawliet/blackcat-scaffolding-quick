@@ -19,6 +19,7 @@ import java.util.concurrent.TimeUnit;
  * @author : zhangdahui  2024/8/23 上午11:26
  */
 @Configuration
+@Order(2)
 public class ResourcesConfig implements WebMvcConfigurer {
 
     @Override
