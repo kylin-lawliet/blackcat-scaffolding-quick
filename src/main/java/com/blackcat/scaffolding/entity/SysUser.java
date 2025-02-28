@@ -3,11 +3,13 @@ package com.blackcat.scaffolding.entity;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 /**
  * 用户对象 @author : zhangdahui  2025/2/22 下午2:40
  */
+@EqualsAndHashCode(callSuper = true)
 @Data
 @NoArgsConstructor
 public class SysUser extends BaseEntity{

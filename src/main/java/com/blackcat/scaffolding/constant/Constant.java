@@ -7,9 +7,9 @@ package com.blackcat.scaffolding.constant;
 public class Constant {
 
     /**
-     * 存储当前访问用户
+     * 通用数据有效状态
      */
-    public static ThreadLocal threadLocal = new ThreadLocal();
+    public static final String VALID = "1";
 
     /**
      * 敏感信息加密盐值
@@ -35,9 +35,4 @@ public class Constant {
      * GBK 字符集
      */
     public static final String GBK = "GBK";
-
-    /**
-     * 通用数据有效状态
-     */
-    public static final String VALID = "1";
 }

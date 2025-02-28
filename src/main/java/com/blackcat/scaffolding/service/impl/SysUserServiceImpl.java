@@ -6,13 +6,10 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.blackcat.scaffolding.common.result.AjaxResult;
 import com.blackcat.scaffolding.common.result.CustomPage;
-import com.blackcat.scaffolding.constant.Constant;
 import com.blackcat.scaffolding.dao.SysUserMapper;
 import com.blackcat.scaffolding.entity.SysUser;
-import com.blackcat.scaffolding.model.LoginUser;
 import com.blackcat.scaffolding.service.SysUserService;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,13 +28,13 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     @Autowired
     private SysUserMapper userMapper;
 
-    @Override
-    public LoginUser loadUserByUsername(SysUser sysUser) {
-        LoginUser userDetails = new LoginUser();
-        BeanUtils.copyProperties(sysUser,userDetails);
-        userDetails.setSysUser(sysUser);
-        return userDetails;
-    }
+//    @Override
+//    public LoginUser loadUserByUsername(SysUser sysUser) {
+//        LoginUser userDetails = new LoginUser();
+//        BeanUtils.copyProperties(sysUser,userDetails);
+//        userDetails.setSysUser(sysUser);
+//        return userDetails;
+//    }
 
     @Override
     public AjaxResult selectPage(Integer pageNow, Integer pageSize, String userName) {
@@ -52,9 +49,9 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
 
     @Override
     public AjaxResult edit(SysUser obj) {
-        SysUser user = JSON.parseObject(JSON.toJSONString(Constant.threadLocal.get()), SysUser.class);
-        System.out.println("Constant.threadLocal.get() "+Constant.threadLocal.get());
-        obj.setCreateBy(String.valueOf(user.getUserId()));
+//        SysUser user = JSON.parseObject(JSON.toJSONString(Constant.threadLocal.get()), SysUser.class);
+//        System.out.println("Constant.threadLocal.get() "+Constant.threadLocal.get());
+//        obj.setCreateBy(String.valueOf(user.getUserId()));
         obj.setCreateTime(new Date());
         obj.setValidStatus(VALID);
         if (obj.getUserId() == null) {
