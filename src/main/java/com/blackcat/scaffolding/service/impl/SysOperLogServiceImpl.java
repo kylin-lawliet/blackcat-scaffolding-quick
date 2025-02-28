@@ -43,6 +43,6 @@ public class SysOperLogServiceImpl extends ServiceImpl<SysOperLogMapper, SysOper
     public AjaxResult getList2(Integer pageNow, Integer pageSize) {
         Page<SysOperLog> page = new Page<>(pageNow, pageSize);
         Page<SysOperLog> result = sysOperLogMapper.selectPage(page, null);
-        return AjaxResult.success(CustomPage.MybatisPage(result));
+        return AjaxResult.success(CustomPage.mybatisPage(result));
     }
 }
