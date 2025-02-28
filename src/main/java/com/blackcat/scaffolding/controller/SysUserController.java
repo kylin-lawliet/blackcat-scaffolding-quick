@@ -5,6 +5,7 @@ import com.blackcat.scaffolding.common.annotation.Log;
 import com.blackcat.scaffolding.common.result.AjaxResult;
 import com.blackcat.scaffolding.entity.SysUser;
 import com.blackcat.scaffolding.enums.BusinessType;
+import com.blackcat.scaffolding.model.PasswordChangeRequest;
 import com.blackcat.scaffolding.service.SysUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -19,6 +20,13 @@ public class SysUserController {
 
     @Autowired
     private SysUserService userService;
+
+    @PutMapping("/changePassword/{userId}")
+    public AjaxResult changePassword(@PathVariable String userId,@RequestBody PasswordChangeRequest request) {
+        System.out.println("oldPassword"+request.getOldPassword());
+        System.out.println("newPassword"+request.getNewPassword());
+        return userService.updatePassword(userId,request.getOldPassword(),request.getNewPassword());
+    }
 
     @GetMapping("/selectPage")
     public AjaxResult selectPage(Integer page, Integer size, String userName) {

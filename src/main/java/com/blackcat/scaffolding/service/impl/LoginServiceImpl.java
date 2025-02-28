@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.blackcat.scaffolding.common.result.AjaxResult;
 import com.blackcat.scaffolding.dao.SysUserMapper;
 import com.blackcat.scaffolding.entity.SysUser;
-import com.blackcat.scaffolding.model.LoginBody;
+import com.blackcat.scaffolding.model.LoginRequest;
 import com.blackcat.scaffolding.model.LoginUser;
 import com.blackcat.scaffolding.service.LoginService;
 import com.blackcat.scaffolding.service.SysUserService;
@@ -23,7 +23,7 @@ public class LoginServiceImpl implements LoginService {
     private SysUserService userService;
 
     @Override
-    public AjaxResult login(LoginBody login) {
+    public AjaxResult login(LoginRequest login) {
         QueryWrapper<SysUser> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("login_name",login.getLoginName());
         queryWrapper.eq("password",login.getPassword());
@@ -32,13 +32,8 @@ public class LoginServiceImpl implements LoginService {
         if (sysUser == null) {
             return AjaxResult.error("用户不存在或密码错误");
         }
-//        //存储用户信息
-//        authenticationManager.authenticate(
-//                new UsernamePasswordAuthenticationToken(login.getLoginName(), login.getPassword())
-//        );
-//        LoginUser userDetails = userService.loadUserByUsername(sysUser);
-//        final String jwt = jwtUtil.generateToken(userDetails);
-//        userDetails.setToken(jwt);
-        return AjaxResult.success(sysUser);
+        LoginUser user = new LoginUser();
+        user.setUserInfo(sysUser);
+        return AjaxResult.success(user);
     }
 }

@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
  */
 @Data
 @NoArgsConstructor
-public class LoginBody {
+public class LoginRequest {
     /**
      * 登录名称
      */

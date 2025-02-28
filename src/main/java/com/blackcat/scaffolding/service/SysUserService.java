@@ -10,6 +10,8 @@ import com.blackcat.scaffolding.entity.SysUser;
  */
 public interface SysUserService extends IService<SysUser> {
 
+    AjaxResult updatePassword(String userId, String oldPassword, String newPassword);
+
     /**
      * 描述 :  分页查询
      * @author : zhangdahui 2025/2/24 上午10:28

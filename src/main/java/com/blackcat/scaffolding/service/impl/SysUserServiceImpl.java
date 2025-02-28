@@ -2,6 +2,7 @@ package com.blackcat.scaffolding.service.impl;
 
 import com.alibaba.fastjson2.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.blackcat.scaffolding.common.result.AjaxResult;
@@ -37,6 +38,22 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
 //    }
 
     @Override
+    public AjaxResult updatePassword(String userId, String oldPassword, String newPassword) {
+        QueryWrapper<SysUser> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("user_id", userId);
+        queryWrapper.eq("password",oldPassword);
+        Long count = userMapper.selectCount(queryWrapper);
+        if (count == 0) {
+            return AjaxResult.error("旧密码不正确");
+        }
+        UpdateWrapper<SysUser> updateWrapper = new UpdateWrapper<>();
+        updateWrapper.eq("user_id", userId);
+        updateWrapper.set("password", newPassword);
+        userMapper.update(updateWrapper);
+        return AjaxResult.success();
+    }
+
+    @Override
     public AjaxResult selectPage(Integer pageNow, Integer pageSize, String userName) {
         Page<SysUser> page = new Page<>(pageNow, pageSize);
         QueryWrapper<SysUser> queryWrapper = new QueryWrapper<>();
@@ -49,9 +66,8 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
 
     @Override
     public AjaxResult edit(SysUser obj) {
-//        SysUser user = JSON.parseObject(JSON.toJSONString(Constant.threadLocal.get()), SysUser.class);
-//        System.out.println("Constant.threadLocal.get() "+Constant.threadLocal.get());
-//        obj.setCreateBy(String.valueOf(user.getUserId()));
+        // TODO 未做本地用户信息存储
+        obj.setCreateBy("1");
         obj.setCreateTime(new Date());
         obj.setValidStatus(VALID);
         if (obj.getUserId() == null) {

@@ -25,7 +25,7 @@ public class LoginUser {
     /**
      * 用户信息
      */
-    private SysUser sysUser;
+    private SysUser userInfo;
     /**
      * 用户唯一标识
      */
