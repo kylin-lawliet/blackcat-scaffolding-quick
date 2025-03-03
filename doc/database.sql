@@ -22,3 +22,62 @@ create table sys_oper_log (
       key idx_sys_oper_log_s  (status),
       key idx_sys_oper_log_ot (oper_time)
 ) engine=innodb auto_increment=100 comment = '操作日志记录';
+
+drop table if exists sys_user;
+CREATE TABLE `sys_user` (
+    `user_id` bigint NOT NULL AUTO_INCREMENT COMMENT '主键',
+    `login_name` varchar(30) NOT NULL COMMENT '登录名称',
+    `password` varchar(50) NOT NULL COMMENT '登录密码',
+    `user_name` varchar(100) DEFAULT NULL COMMENT '用户名称',
+    `email` varchar(100) DEFAULT NULL COMMENT '邮箱',
+    `telephone` varchar(20) DEFAULT NULL COMMENT '电话',
+    `we_chat` varchar(255) DEFAULT NULL COMMENT '微信',
+    `qq` varchar(255) DEFAULT NULL COMMENT 'QQ',
+    `valid_status` varchar(2) NOT NULL COMMENT '状态',
+    `create_time` datetime NOT NULL COMMENT '创建时间',
+    `update_time` datetime DEFAULT NULL COMMENT '修改时间',
+    `create_by` varchar(36) NOT NULL COMMENT '创建者',
+    `update_by` varchar(36) DEFAULT NULL COMMENT '更新者',
+    `remark` varchar(500) DEFAULT NULL COMMENT '备注',
+    `sex` varchar(10) NOT NULL COMMENT '性别',
+    PRIMARY KEY (`user_id`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb3 COMMENT='用户表';
+
+INSERT INTO sys_user
+(user_id, login_name, password, user_name, email, telephone, we_chat, qq, valid_status, create_time, update_time, create_by, update_by, remark, sex)
+VALUES(1, 'admin', '123456', '管理员', NULL, '231', NULL, NULL, '1', '2025-03-01 10:22:20', NULL, '1', NULL, NULL, '1');
+INSERT INTO sys_user
+(user_id, login_name, password, user_name, email, telephone, we_chat, qq, valid_status, create_time, update_time, create_by, update_by, remark, sex)
+VALUES(2, 'demo', '!QAZ3edc', '测试用户', NULL, NULL, NULL, NULL, '1', '2025-02-22 00:00:00', NULL, '1', NULL, NULL, '0');
+
+
+drop table if exists dome;
+CREATE TABLE `dome` (
+    `id` int NOT NULL AUTO_INCREMENT,
+    `sex` varchar(10) DEFAULT NULL,
+    `age` int DEFAULT NULL,
+    `create_time` datetime DEFAULT NULL,
+    `weight` double DEFAULT NULL,
+    `birthday` datetime DEFAULT NULL,
+    `remark` text,
+    `user_name` varchar(100) DEFAULT NULL,
+    `dept_id` varchar(100) DEFAULT NULL,
+    `position_id` varchar(100) DEFAULT NULL,
+    PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='示例表';
+
+drop table if exists dome_dept;
+CREATE TABLE `dome_dept` (
+     `id` int NOT NULL AUTO_INCREMENT,
+     `dept_name` varchar(100) DEFAULT NULL,
+     PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='示例部门表';
+
+
+drop table if exists dome_position;
+CREATE TABLE `dome_position` (
+     `id` int NOT NULL AUTO_INCREMENT,
+     `dept_id` varchar(100) DEFAULT NULL,
+     `position_name` varchar(100) DEFAULT NULL,
+     PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='示例职位表';
