@@ -24,6 +24,7 @@ public class CustomDateDeserializer extends JsonDeserializer<LocalDateTime> {
         FORMATTERS.put("yyyy-MM-dd HH:mm:ss", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
         FORMATTERS.put("yyyy/MM/dd", DateTimeFormatter.ofPattern("yyyy/MM/dd"));
         FORMATTERS.put("yyyy-MM-dd'T'HH:mm:ss.SSSX", DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSX"));
+        FORMATTERS.put("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"));
     }
 
     @Override
@@ -35,8 +36,10 @@ public class CustomDateDeserializer extends JsonDeserializer<LocalDateTime> {
                 DateTimeFormatter formatter = entry.getValue();
                 formatter.parse(dateString); // 尝试解析
                 pattern = entry.getKey();      // 如果成功，返回格式
+                System.out.println("pattern"+pattern);
             } catch (DateTimeParseException ignored) {
                 // 忽略解析失败的格式
+                System.out.println("解析失败"+entry.getKey());
             }
         }
         DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern(pattern);

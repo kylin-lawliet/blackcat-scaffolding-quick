@@ -14,6 +14,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 import static com.blackcat.scaffolding.constant.Constant.VALID;
@@ -28,14 +29,6 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
 
     @Autowired
     private SysUserMapper userMapper;
-
-//    @Override
-//    public LoginUser loadUserByUsername(SysUser sysUser) {
-//        LoginUser userDetails = new LoginUser();
-//        BeanUtils.copyProperties(sysUser,userDetails);
-//        userDetails.setSysUser(sysUser);
-//        return userDetails;
-//    }
 
     @Override
     public AjaxResult updatePassword(String userId, String oldPassword, String newPassword) {
@@ -54,11 +47,14 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     }
 
     @Override
-    public AjaxResult selectPage(Integer pageNow, Integer pageSize, String userName) {
+    public AjaxResult selectPage(Integer pageNow, Integer pageSize, String userName,String loginName) {
         Page<SysUser> page = new Page<>(pageNow, pageSize);
         QueryWrapper<SysUser> queryWrapper = new QueryWrapper<>();
         if (StringUtils.isNotBlank(userName)) {
             queryWrapper.like("user_name", userName);
+        }
+        if (StringUtils.isNotBlank(loginName)) {
+            queryWrapper.like("login_name", loginName);
         }
         Page<SysUser> result = userMapper.selectPage(page, queryWrapper);
         return AjaxResult.success(CustomPage.mybatisPage(result));
@@ -68,7 +64,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     public AjaxResult edit(SysUser obj) {
         // TODO 未做本地用户信息存储
         obj.setCreateBy("1");
-        obj.setCreateTime(new Date());
+        obj.setCreateTime(LocalDateTime.now());
         obj.setValidStatus(VALID);
         if (obj.getUserId() == null) {
             userMapper.insert(obj);

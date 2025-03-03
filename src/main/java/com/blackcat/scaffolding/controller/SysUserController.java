@@ -29,8 +29,8 @@ public class SysUserController {
     }
 
     @GetMapping("/selectPage")
-    public AjaxResult selectPage(Integer page, Integer size, String userName) {
-        return userService.selectPage(page,size,userName);
+    public AjaxResult selectPage(Integer page, Integer size, String userName,String loginName) {
+        return userService.selectPage(page,size,userName,loginName);
     }
 
     @Log(title = "编辑", businessType = BusinessType.UPDATE)
